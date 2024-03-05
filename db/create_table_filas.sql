@@ -1,0 +1,7 @@
+CREATE TABLE filas (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nome VARCHAR(50) NOT NULL,
+    ramais TEXT NOT NULL,
+    status ENUM('ativo', 'inativo') NOT NULL DEFAULT 'ativo',
+    data_atualizacao TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
