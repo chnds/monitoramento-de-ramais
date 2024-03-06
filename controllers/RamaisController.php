@@ -1,31 +1,50 @@
 <?php
-require_once '../models/RamaisModel.php';
+
+require_once $_SERVER['DOCUMENT_ROOT'] . '../models/Model.php';
 
 class RamaisController {
-    private $ramaisModel;
-
-    public function __construct() {
-        $this->ramaisModel = new RamaisModel();
-    }
-
     public function index() {
-        // Método para exibir todos os ramais
+        $ramaisModel = new Model('ramais');
+        $ramais = $ramaisModel->all();
+        echo json_encode($ramais);
     }
 
     public function show($id) {
-        // Método para exibir um ramal específico
+        $ramaisModel = new Model('ramais');
+
+        $ramal = $ramaisModel->find($id);
+
     }
 
-    public function store($data) {
-        // Método para armazenar um novo ramal
+    public function create() {
+        $ramaisModel = new Model('ramais');
+
+        $ramaisModel->create([
+            'numero' => $_POST['numero'],
+            'nome' => $_POST['nome'],
+            'ip' => $_POST['ip'],
+            'status' => $_POST['status']
+        ]);
+
     }
 
-    public function update($id, $data) {
-        // Método para atualizar os dados de um ramal
+    public function update($id) {
+        $ramaisModel = new Model('ramais');
+
+        $ramaisModel->update($id, [
+            'numero' => $_POST['numero'],
+            'nome' => $_POST['nome'],
+            'ip' => $_POST['ip'],
+            'status' => $_POST['status']
+        ]);
+
     }
 
-    public function destroy($id) {
-        // Método para excluir um ramal
+    public function delete($id) {
+        $ramaisModel = new Model('ramais');
+
+        $ramaisModel->delete($id);
+
     }
 }
 ?>

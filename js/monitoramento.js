@@ -1,5 +1,7 @@
+var baseUrl = "http://localhost";
+
 $.ajax({
-    url: "http://localhost/lib/ramais.php",
+    url: baseUrl + "/ramais",
     type: "GET",
     success: function(data){                
         for(let i in data){
