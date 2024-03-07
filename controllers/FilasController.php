@@ -1,31 +1,56 @@
 <?php
-require_once '../models/FilasModel.php';
+
+require_once $_SERVER['DOCUMENT_ROOT'] . '../models/Model.php';
 
 class FilasController {
-    private $filasModel;
-
-    public function __construct() {
-        $this->filasModel = new FilasModel();
+    public function index() {
+        $filasModel = new Model('filas');
+        $filas = $filasModel->all();
+        echo json_encode($filas);
     }
 
-    public function index() {
-        // Método para exibir todas as filas
+    public function listAll() {
+        $filasModel = new Model('filas');
+        $filas = $filasModel->joinTables('ramais','filas','id');
+        echo json_encode($filas);
     }
 
     public function show($id) {
-        // Método para exibir uma fila específica
+        $filasModel = new Model('filas');
+
+        $ramal = $filasModel->find($id);
+
     }
 
-    public function store($data) {
-        // Método para armazenar uma nova fila
+    public function create() {
+        $filasModel = new Model('filas');
+
+        $filasModel->create([
+            'numero' => $_POST['numero'],
+            'nome' => $_POST['nome'],
+            'ip' => $_POST['ip'],
+            'status' => $_POST['status']
+        ]);
+
     }
 
-    public function update($id, $data) {
-        // Método para atualizar os dados de uma fila
+    public function update($id) {
+        $filasModel = new Model('filas');
+
+        $filasModel->update($id, [
+            'numero' => $_POST['numero'],
+            'nome' => $_POST['nome'],
+            'ip' => $_POST['ip'],
+            'status' => $_POST['status']
+        ]);
+
     }
 
-    public function destroy($id) {
-        // Método para excluir uma fila
+    public function delete($id) {
+        $filasModel = new Model('filas');
+
+        $filasModel->delete($id);
+
     }
 }
 ?>

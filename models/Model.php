@@ -43,6 +43,14 @@ class Model {
         $sql = "DELETE FROM {$this->table} WHERE id = ?";
         return $this->db->delete($sql, [$id]);
     }
+
+    public function joinTables($primaryTable, $secondaryTable, $joinColumn) {
+        $sql = "SELECT {$secondaryTable}.* FROM {$primaryTable} JOIN {$secondaryTable} ON {$primaryTable}.{$joinColumn} = {$secondaryTable}.{$joinColumn}";
+        return $this->db->select($sql);
+    }
+    
+    
+
 }
 
 ?>

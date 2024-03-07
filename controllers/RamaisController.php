@@ -9,6 +9,12 @@ class RamaisController {
         echo json_encode($ramais);
     }
 
+    public function listAll() {
+        $ramaisModel = new Model('ramais');
+        $ramais = $ramaisModel->all();
+        echo json_encode($ramais);
+    }
+
     public function show($id) {
         $ramaisModel = new Model('ramais');
 

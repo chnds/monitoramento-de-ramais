@@ -1,0 +1,51 @@
+{
+    "peers": [
+      {
+        "name": "7000/7000",
+        "host": "181.219.125.7",
+        "dyn": "D",
+        "nat": "N",
+        "acl": "42367",
+        "port": "OK (33 ms)"
+      },
+      {
+        "name": "7001/7001",
+        "host": "181.219.125.7",
+        "dyn": "D",
+        "nat": "N",
+        "acl": "42368",
+        "port": "OK (20 ms)"
+      },
+      {
+        "name": "7004/7002",
+        "host": "(Unspecified)",
+        "dyn": "D",
+        "nat": "N",
+        "acl": "0",
+        "port": "UNKNOWN"
+      },
+      {
+        "name": "7003/7003",
+        "host": "(Unspecified)",
+        "dyn": "D",
+        "nat": "N",
+        "acl": "0",
+        "port": "UNKNOWN"
+      },
+      {
+        "name": "7002/7004",
+        "host": "181.219.125.7",
+        "dyn": "D",
+        "nat": "N",
+        "acl": "42369",
+        "port": "OK (15 ms)"
+      }
+    ],
+    "summary": {
+      "online_monitored": 1,
+      "offline_monitored": 4,
+      "online_unmonitored": 0,
+      "offline_unmonitored": 0
+    }
+}
+  

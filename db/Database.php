@@ -10,12 +10,13 @@ class Database {
             $dbname = $config['dbname'];
             $username = $config['username'];
             $password = $config['password'];
-
             $this->pdo = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
+
             $this->pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
         } catch (PDOException $e) {
             echo "Erro ao conectar ao banco de dados: " . $e->getMessage();
-            exit(); // Encerra o script em caso de falha na conexão
+            exit();
         }
     }
 

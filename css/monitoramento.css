@@ -39,8 +39,28 @@
     background-color: #04ea04;
 }
 
+
+.cartao-indisponivel {
+    background-color: #f2f2f2; 
+}
+
+.cartao-pausa {
+    background-color: #ffcc66; 
+}
+
 .icone-posicao {
     position: absolute;
-    top: 10px;
-    right: 10px;
+    top: 5px;
+    right: 5px;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%; 
+}
+
+.icone-indisponivel {
+    background-color: #666666;
+}
+
+.icone-pausa {
+    background-color: #ff9900; 
 }

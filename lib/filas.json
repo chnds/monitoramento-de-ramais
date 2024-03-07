@@ -1,0 +1,50 @@
+{
+    "gcallcenter-SUPORTE": {
+      "calls": 0,
+      "max_calls": 20,
+      "strategy": "ringall",
+      "holdtime": "1s",
+      "members": [
+        {
+          "extension": "SIP/7000",
+          "penalty": 1,
+          "status": "In use",
+          "calls_taken": 0,
+          "name": "Chaves"
+        },
+        {
+          "extension": "SIP/7001",
+          "penalty": 1,
+          "status": "Ring",
+          "calls_taken": 0,
+          "name": "Kiko"
+        },
+        {
+          "extension": "SIP/7002",
+          "penalty": 1,
+          "status": "Unavailable",
+          "calls_taken": 3,
+          "last_call_secs_ago": 1800,
+          "name": "Chiquinha"
+        },
+        {
+          "extension": "SIP/7003",
+          "penalty": 1,
+          "status": "Unavailable",
+          "calls_taken": 48,
+          "last_call_secs_ago": 15447,
+          "name": "Nhonho"
+        },
+        {
+          "extension": "SIP/7004",
+          "penalty": 1,
+          "status": "Not in use",
+          "paused": true,
+          "calls_taken": 0,
+          "name": "Godines"
+        }
+      ],
+      "callers": []
+    }
+  }
+  

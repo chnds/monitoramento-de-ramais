@@ -9,7 +9,11 @@ Neste teste você dispõe de um cenário fictício, onde há um painel de monito
 ### MELHORIAS  
 Após a correção destes itens, você deverá aplicar ao menos 3 (três) melhorias neste sistema.
 
-- Melhorias: Testes unitários
+Melhorias sugeridas: 
+- Testes unitários
+- Grafico em tempo real
+- 
+
 
 ### OBRIGATÓRIO  
 O teste também contará com algumas atividades obrigatórias:

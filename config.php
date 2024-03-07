@@ -2,7 +2,7 @@
 
 return [
     'host' => 'localhost',
-    'dbname' => 'l5_connection',
+    'dbname' => 'dev_junior',
     'username' => 'root',
     'password' => ''
 ];
