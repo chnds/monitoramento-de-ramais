@@ -26,23 +26,22 @@ class RamaisController {
         $ramaisModel = new Model('ramais');
 
         $ramaisModel->create([
-            'numero' => $_POST['numero'],
-            'nome' => $_POST['nome'],
-            'ip' => $_POST['ip'],
-            'status' => $_POST['status']
+            'acl' => $_POST['acl'],
+            'dyn' => $_POST['dyn'],
+            'host' => $_POST['host'],
+            'name' => $_POST['name'],
+            'nat' => $_POST['nat'],
+            'port' => $_POST['port']
         ]);
 
     }
 
-    public function update($id) {
-        $ramaisModel = new Model('ramais');
+    public function update($data) {
+        $data = json_decode($data, true);
 
-        $ramaisModel->update($id, [
-            'numero' => $_POST['numero'],
-            'nome' => $_POST['nome'],
-            'ip' => $_POST['ip'],
-            'status' => $_POST['status']
-        ]);
+        $ramaisModel = new Model('filas');
+        $filas = $ramaisModel->updateMultipleRamais($data['filas']);
+        echo json_encode($filas);
 
     }
 

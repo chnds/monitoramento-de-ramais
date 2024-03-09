@@ -21,6 +21,23 @@ abstract class RouteSwitch
         $controller = new FilasController();
         $controller->listAll(); 
     }
+
+    protected function atualizarRamais()
+    {
+        $json = file_get_contents("php://input");
+
+        $controller = new RamaisController();
+        $controller->update($json); 
+    }
+
+    protected function atualizarFilas()
+    {
+        $json = file_get_contents("php://input");
+
+        $controller = new FilasController();
+        $controller->update($json); 
+    }
+    
     
     public function __call($name, $arguments)
     {

@@ -1,7 +1,6 @@
 <?php
 
 require_once $_SERVER['DOCUMENT_ROOT'] . '../models/Model.php';
-
 class FilasController {
     public function index() {
         $filasModel = new Model('filas');
@@ -18,39 +17,28 @@ class FilasController {
     public function show($id) {
         $filasModel = new Model('filas');
 
+        $id = filter_var($id, FILTER_SANITIZE_NUMBER_INT);
+
         $ramal = $filasModel->find($id);
 
+        echo json_encode($ramal);
     }
 
-    public function create() {
+    public function update($data) {
+        $data = json_decode($data, true);
+
         $filasModel = new Model('filas');
-
-        $filasModel->create([
-            'numero' => $_POST['numero'],
-            'nome' => $_POST['nome'],
-            'ip' => $_POST['ip'],
-            'status' => $_POST['status']
-        ]);
-
-    }
-
-    public function update($id) {
-        $filasModel = new Model('filas');
-
-        $filasModel->update($id, [
-            'numero' => $_POST['numero'],
-            'nome' => $_POST['nome'],
-            'ip' => $_POST['ip'],
-            'status' => $_POST['status']
-        ]);
-
+        $filas = $filasModel->updateMultipleFilas($data['filas']);
+        echo json_encode($filas);
     }
 
     public function delete($id) {
         $filasModel = new Model('filas');
 
-        $filasModel->delete($id);
+        $id = filter_var($id, FILTER_SANITIZE_NUMBER_INT);
 
+        $filasModel->delete($id);
     }
 }
+
 ?>

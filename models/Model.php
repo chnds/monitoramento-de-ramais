@@ -49,7 +49,111 @@ class Model {
         return $this->db->select($sql);
     }
     
+    function updateMultipleFilas($elemento)
+    {
+        $database = new Database('filas');
+
+        if (!is_array($elemento)) {
+            echo 'O elemento não é um array válido.';
+            return;
+        }
+
+        $query = "UPDATE FILAS SET ";
+
+        foreach ($elemento as $extension) {
+            $query .= "penalty = CASE extension ";
+            foreach ($elemento as $ext) {
+                $query .= "WHEN '{$ext["extension"]}' THEN {$ext["penalty"]} ";
+            }
+            $query .= "END, ";
+            
+            $query .= "status = CASE extension ";
+            foreach ($elemento as $ext) {
+                $query .= "WHEN '{$ext["extension"]}' THEN '{$ext["status"]}' ";
+            }
+            $query .= "END, ";
+            
+            $query .= "calls_taken = CASE extension ";
+            foreach ($elemento as $ext) {
+                $query .= "WHEN '{$ext["extension"]}' THEN {$ext["calls_taken"]} ";
+            }
+            $query .= "END, ";
+            
+            $query .= "name = CASE extension ";
+            foreach ($elemento as $ext) {
+                $query .= "WHEN '{$ext["extension"]}' THEN '{$ext["name"]}' ";
+            }
+            $query .= "END, ";
+            
+            if (isset($extension["last_call_secs_ago"])) {
+                $query .= "last_call_secs_ago = CASE extension ";
+                foreach ($elemento as $ext) {
+                    if (isset($ext["last_call_secs_ago"])) {
+                        $query .= "WHEN '{$ext["extension"]}' THEN {$ext["last_call_secs_ago"]} ";
+                    }
+                }
+                $query .= "END, ";
+            }
+            
+            if (isset($extension["paused"])) {
+                $query .= "paused = CASE extension ";
+                foreach ($elemento as $ext) {
+                    if (isset($ext["paused"])) {
+                        $query .= "WHEN '{$ext["extension"]}' THEN {$ext["paused"]} ";
+                    }
+                }
+                $query .= "END, ";
+            }
+        }
+        
+        $query = rtrim($query, ", "); 
+        $query .= " WHERE extension IN ('" . implode("','", array_column($elemento, 'extension')) . "')"; 
+
+        $pdo = new PDO("mysql:host=localhost;dbname=dev_junior", "root", "");
+        $query = trim($query); 
+        try {
+            $pdo->beginTransaction();
+            $pdo->exec($query);
+            $pdo->commit();
+            echo "Query executada com sucesso!";
+        } catch (PDOException $e) {
+            $pdo->rollBack();
+            echo "Erro ao executar a query: " . $e->getMessage();
+        }
+    }
+
+    function updateMultipleRamais($elemento){
+        $query = "UPDATE ramais SET ";
     
+        foreach ($elemento as $peer) {
+            $query .= "host = CASE name ";
+            $query .= "WHEN '{$peer["name"]}' THEN '{$peer["host"]}' ";
+            $query .= "END, ";
+            
+            $query .= "dyn = CASE name ";
+            $query .= "WHEN '{$peer["name"]}' THEN '{$peer["dyn"]}' ";
+            $query .= "END, ";
+            
+            $query .= "nat = CASE name ";
+            $query .= "WHEN '{$peer["name"]}' THEN '{$peer["nat"]}' ";
+            $query .= "END, ";
+            
+            $query .= "acl = CASE name ";
+            $query .= "WHEN '{$peer["name"]}' THEN '{$peer["acl"]}' ";
+            $query .= "END, ";
+            
+            $query .= "port = CASE name ";
+            $query .= "WHEN '{$peer["name"]}' THEN '{$peer["port"]}' ";
+            $query .= "END, ";
+        }
+        
+        $query = rtrim($query, ", "); // Remove a vírgula extra no final
+        $query .= " WHERE name IN (";
+        
+        $peerNames = array_column($elemento, 'name');
+        $query .= "'" . implode("','", $peerNames) . "')";
+        
+    }
 
 }
 

@@ -5,7 +5,7 @@
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title>Vesperr Bootstrap Template - Index</title>
+  <title>Call Center</title>
   <meta content="" name="description">
   <meta content="" name="keywords">
 
@@ -60,7 +60,7 @@
           </div>
         </div>
         <div class="col-lg-6 order-1 order-lg-2 hero-img" data-aos="fade-left" data-aos-delay="200">
-          <img src="assets/img/hero-img.png" class="img-fluid animated" alt="">
+          <img src="assets/img/callcenter.jpg" class="img-fluid animated" alt="">
         </div>
       </div>
     </div>
@@ -72,11 +72,18 @@
     <section id="about" class="about">
       
       <div class="container">
-
         <div class="section-title" data-aos="fade-up">
           <h2>Lista de ramais</h2>
         </div>
 
+        <div class="input-group mb-3">
+          <input type="text" class="form-control" id="searchInput" placeholder="Pesquisar ramal..." onkeyup="searchRamal()">
+          <div class="input-group-append">
+              <button class="btn btn-primary" type="button" onclick="searchRamal()">Pesquisar</button>
+          </div>
+        </div>
+      
+        </div>
         <div class="row content">
           <div class="col-lg-12" data-aos="fade-up" data-aos-delay="150">
             <section id="services" class="services">
@@ -89,28 +96,7 @@
                       <div id="cartoes">
 
                       </div>
-                      <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                        <div class="modal-dialog" role="document">
-                          <div class="modal-content">
-                            <div class="modal-header">
-                              <h5 class="modal-title" id="exampleModalLabel">Mais informações</h5>
-                              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                              </button>
-                            </div>
-                            <div class="modal-body" id="modal-body">
-                              
-                            </div>
-                            <div class="modal-footer">
-                              <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                
                     </div>
-                    <canvas id="grafico"></canvas>
-                
                 </div>
         
               </div>
@@ -122,6 +108,25 @@
       </div>
     </section>
   </main>
+
+  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Mais informações</h5>
+          <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body" id="modal-body">
+          
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <footer id="footer">
     <div class="container">

@@ -3,6 +3,9 @@ var baseUrl = "http://localhost";
 var ramaisData = []; 
 
 function atualizarPainel() {
+    persistirRamais();
+    persistirFilas();
+
     $.ajax({
         url: baseUrl + "/listarFilas",
         type: "GET",
@@ -41,6 +44,7 @@ function atualizarPainel() {
             console.log("Erro ao obter dados: " + textStatus);
         }
     });
+
 }
 
 function exibirInformacoesModal(item) {
@@ -71,8 +75,48 @@ function searchRamal() {
         txtValue = card.textContent || card.innerText;
         if (txtValue.toUpperCase().indexOf(filter) > -1) {
             card.style.display = "";
-        } else {
+    } else {
             card.style.display = "none";
         }
     }
 }
+
+function persistirRamais() {
+    
+    $.getJSON('../lib/ramais.json', function(data) {
+    $.ajax({
+            url: '/atualizarRamais',
+            type: 'POST',
+            contentType: 'application/json',
+            data: JSON.stringify(data.peers),
+            success: function(response) {
+                console.log('Dados dos ramais persistidos com sucesso!');
+            },
+            error: function(xhr, status, error) {
+                console.error('Erro ao persistir os dados dos ramais:', error);
+            }
+        });
+    });
+}
+
+function persistirFilas() {
+    $.getJSON('../lib/filas.json', function(data) {
+        console.log("Dados do AJAX:", data);
+
+        $.ajax({
+            url: '/atualizarFilas',
+            type: 'POST',
+            contentType: 'application/json',
+            data: JSON.stringify({ filas: data['filas'] }), 
+            success: function(response) {
+                console.log('Dados dos filas persistidos com sucesso!');
+            },
+            error: function(xhr, status, error) {
+                console.error('Erro ao persistir os dados dos filas:', error);
+            }
+        });
+    });
+}
+
+
+

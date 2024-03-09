@@ -5,13 +5,16 @@ class Database {
 
     public function __construct() {
         try {
-            $config = require_once 'config.php';
-            $host = $config['host'];
-            $dbname = $config['dbname'];
-            $username = $config['username'];
-            $password = $config['password'];
-            $this->pdo = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
-
+            // $config = require_once 'config.php';
+            $config = [
+                'host' => 'localhost',
+                'dbname' => 'dev_junior',
+                'username' => 'root',
+                'password' => ''
+            ];
+            
+            $this->pdo = new PDO("mysql:host=" . $config['host'] . ";dbname=" . $config['dbname'], $config['username'], $config['password']);
+            
             $this->pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
         } catch (PDOException $e) {
@@ -41,6 +44,7 @@ class Database {
         $stmt = $this->pdo->prepare($sql);
         return $stmt->execute($params);
     }
+ 
 }
 
 ?>
