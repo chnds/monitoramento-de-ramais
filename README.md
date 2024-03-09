@@ -9,10 +9,6 @@ Neste teste você dispõe de um cenário fictício, onde há um painel de monito
 ### MELHORIAS  
 Após a correção destes itens, você deverá aplicar ao menos 3 (três) melhorias neste sistema.
 
-Melhorias sugeridas: 
-- Testes unitários
-- Grafico em tempo real
-- 
 
 
 ### OBRIGATÓRIO  
@@ -29,3 +25,22 @@ O teste também contará com algumas atividades obrigatórias:
 4. Estes arquivos NÃO devem unidos em um só arquivo  
 5. Estes arquivos poderão ser alterados apenas para teste do AJAX  
 6. Ao concluir o teste, deverá ser encaminhado um arquivo .zip contendo todo o código, dump da base de dados e instruções de instalação e a lista das melhorias aplicadas.  
+
+### Melhorias sugeridas
+
+
+Aqui estão três sugestões de melhorias para o front-end e/ou back-end do sistema:
+
+Implementação de Pesquisa e Filtro:
+
+Adicione um campo de pesquisa para os ramais, permitindo que os usuários busquem rapidamente por um ramal específico.
+Integre filtros para que os usuários possam visualizar apenas os ramais com status específicos, como disponível, pausa, offline, etc.
+Notificações em Tempo Real:
+
+Implemente notificações em tempo real para alertar os usuários sobre mudanças nos status dos ramais.
+Utilize tecnologias como WebSockets para fornecer atualizações instantâneas sem a necessidade de recarregar a página.
+Melhorias na Interface do Usuário (UI):
+
+Aprimore a interface do usuário para torná-la mais intuitiva e amigável.
+Adicione tooltips informativos nos ícones para fornecer detalhes adicionais sobre o status dos ramais ao passar o mouse sobre eles.
+Implemente animações sutis para tornar a experiência do usuário mais agradável e responsiva.

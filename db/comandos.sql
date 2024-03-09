@@ -11,7 +11,7 @@ CREATE TABLE IF NOT EXISTS ramais (
     Status VARCHAR(50) NOT NULL
 );
 
-INSERT INTO ramais (name, host, dyn, nat, acl, port) VALUES
+INSERT INTO ramais (id, name, host, dyn, nat, acl, port) VALUES
 ('7000/7000', '181.219.125.7', 'D', 'N', '42367', 'OK (33 ms)'),
 ('7001/7001', '181.219.125.7', 'D', 'N', '42368', 'OK (20 ms)'),
 ('7004/7002', '(Unspecified)', 'D', 'N', '0', 'UNKNOWN'),
