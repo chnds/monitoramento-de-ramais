@@ -5,7 +5,6 @@ class Database {
 
     public function __construct() {
         try {
-            // $config = require_once 'config.php';
             $config = [
                 'host' => 'localhost',
                 'dbname' => 'dev_junior',

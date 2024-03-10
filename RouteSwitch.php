@@ -25,7 +25,6 @@ abstract class RouteSwitch
     protected function atualizarRamais()
     {
         $json = file_get_contents("php://input");
-
         $controller = new RamaisController();
         $controller->update($json); 
     }
@@ -33,7 +32,6 @@ abstract class RouteSwitch
     protected function atualizarFilas()
     {
         $json = file_get_contents("php://input");
-
         $controller = new FilasController();
         $controller->update($json); 
     }

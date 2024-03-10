@@ -3,9 +3,6 @@ var baseUrl = "http://localhost";
 var ramaisData = []; 
 
 function atualizarPainel() {
-    persistirRamais();
-    persistirFilas();
-
     $.ajax({
         url: baseUrl + "/listarFilas",
         type: "GET",
@@ -58,7 +55,13 @@ function exibirInformacoesModal(item) {
     $('#myModal').modal('show');
 }
 
-setInterval(atualizarPainel, 10000);
+function executarFuncoes() {
+    persistirRamais();
+    persistirFilas();
+    atualizarPainel();
+}
+
+setInterval(executarFuncoes, 10000);
 
 $(document).ready(function() {
     atualizarPainel();
@@ -82,9 +85,9 @@ function searchRamal() {
 }
 
 function persistirRamais() {
-    
     $.getJSON('../lib/ramais.json', function(data) {
-    $.ajax({
+        console.log('Dados ramais:', data.peers); // Correção aqui
+        $.ajax({
             url: '/atualizarRamais',
             type: 'POST',
             contentType: 'application/json',
@@ -96,25 +99,29 @@ function persistirRamais() {
                 console.error('Erro ao persistir os dados dos ramais:', error);
             }
         });
+    }).fail(function(jqXHR, textStatus, errorThrown) {
+        console.error('Erro ao carregar o arquivo JSON:', errorThrown);
     });
 }
 
+
 function persistirFilas() {
     $.getJSON('../lib/filas.json', function(data) {
-        console.log("Dados do AJAX:", data);
-
+        console.log('Dados filas:', data.filas); // Correção aqui
         $.ajax({
             url: '/atualizarFilas',
             type: 'POST',
             contentType: 'application/json',
-            data: JSON.stringify({ filas: data['filas'] }), 
+            data: JSON.stringify({ filas: data.filas }), 
             success: function(response) {
-                console.log('Dados dos filas persistidos com sucesso!');
+                console.log('Dados das filas persistidos com sucesso!');
             },
             error: function(xhr, status, error) {
-                console.error('Erro ao persistir os dados dos filas:', error);
+                console.error('Erro ao persistir os dados das filas:', error);
             }
         });
+    }).fail(function(jqXHR, textStatus, errorThrown) {
+        console.error('Erro ao carregar o arquivo JSON das filas:', errorThrown);
     });
 }
 

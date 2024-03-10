@@ -33,10 +33,6 @@ Aqui estão três sugestões de melhorias para o front-end e/ou back-end do sist
 
 Implementação de Pesquisa e Filtro:
 
-Adicione um campo de pesquisa para os ramais, permitindo que os usuários busquem rapidamente por um ramal específico.
-Integre filtros para que os usuários possam visualizar apenas os ramais com status específicos, como disponível, pausa, offline, etc.
-Notificações em Tempo Real:
-
 Implemente notificações em tempo real para alertar os usuários sobre mudanças nos status dos ramais.
 Utilize tecnologias como WebSockets para fornecer atualizações instantâneas sem a necessidade de recarregar a página.
 Melhorias na Interface do Usuário (UI):

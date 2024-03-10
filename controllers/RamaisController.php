@@ -38,9 +38,8 @@ class RamaisController {
 
     public function update($data) {
         $data = json_decode($data, true);
-
         $ramaisModel = new Model('filas');
-        $filas = $ramaisModel->updateMultipleRamais($data['filas']);
+        $filas = $ramaisModel->updateMultipleRamais($data);
         echo json_encode($filas);
 
     }

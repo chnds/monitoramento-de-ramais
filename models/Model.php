@@ -2,10 +2,14 @@
 
 require_once $_SERVER['DOCUMENT_ROOT'] . '../db/Database.php';
 
+$config = require_once 'config.php';
+
+
 class Model {
+    
     protected $table;
     protected $db;
-
+    
     public function __construct($table) {
         $this->table = $table;
         $this->db = new Database();
@@ -51,109 +55,149 @@ class Model {
     
     function updateMultipleFilas($elemento)
     {
-        $database = new Database('filas');
-
-        if (!is_array($elemento)) {
-            echo 'O elemento não é um array válido.';
-            return;
-        }
-
-        $query = "UPDATE FILAS SET ";
-
-        foreach ($elemento as $extension) {
-            $query .= "penalty = CASE extension ";
-            foreach ($elemento as $ext) {
-                $query .= "WHEN '{$ext["extension"]}' THEN {$ext["penalty"]} ";
-            }
-            $query .= "END, ";
-            
-            $query .= "status = CASE extension ";
-            foreach ($elemento as $ext) {
-                $query .= "WHEN '{$ext["extension"]}' THEN '{$ext["status"]}' ";
-            }
-            $query .= "END, ";
-            
-            $query .= "calls_taken = CASE extension ";
-            foreach ($elemento as $ext) {
-                $query .= "WHEN '{$ext["extension"]}' THEN {$ext["calls_taken"]} ";
-            }
-            $query .= "END, ";
-            
-            $query .= "name = CASE extension ";
-            foreach ($elemento as $ext) {
-                $query .= "WHEN '{$ext["extension"]}' THEN '{$ext["name"]}' ";
-            }
-            $query .= "END, ";
-            
-            if (isset($extension["last_call_secs_ago"])) {
-                $query .= "last_call_secs_ago = CASE extension ";
-                foreach ($elemento as $ext) {
-                    if (isset($ext["last_call_secs_ago"])) {
-                        $query .= "WHEN '{$ext["extension"]}' THEN {$ext["last_call_secs_ago"]} ";
-                    }
-                }
-                $query .= "END, ";
-            }
-            
-            if (isset($extension["paused"])) {
-                $query .= "paused = CASE extension ";
-                foreach ($elemento as $ext) {
-                    if (isset($ext["paused"])) {
-                        $query .= "WHEN '{$ext["extension"]}' THEN {$ext["paused"]} ";
-                    }
-                }
-                $query .= "END, ";
-            }
-        }
-        
-        $query = rtrim($query, ", "); 
-        $query .= " WHERE extension IN ('" . implode("','", array_column($elemento, 'extension')) . "')"; 
-
-        $pdo = new PDO("mysql:host=localhost;dbname=dev_junior", "root", "");
-        $query = trim($query); 
         try {
+            new Database('filas');
+
+           
+            $query = "UPDATE FILAS SET ";
+
+            foreach ($elemento as $extension) {
+
+                $query .= "penalty = CASE extension ";
+                foreach ($extension as $ext) {
+                    $query .= "WHEN '{$ext["extension"]}' THEN {$ext["penalty"]} ";
+                }
+                $query .= "END, ";
+                
+                $query .= "status = CASE extension ";
+                foreach ($extension as $ext) {
+                    $query .= "WHEN '{$ext["extension"]}' THEN '{$ext["status"]}' ";
+                }
+                $query .= "END, ";
+                
+                $query .= "calls_taken = CASE extension ";
+                foreach ($extension as $ext) {
+                    $query .= "WHEN '{$ext["extension"]}' THEN {$ext["calls_taken"]} ";
+                }
+                $query .= "END, ";
+                
+                $query .= "name = CASE extension ";
+                foreach ($extension as $ext) {
+                    $query .= "WHEN '{$ext["extension"]}' THEN '{$ext["name"]}' ";
+                }
+                $query .= "END, ";
+                
+                if (isset($extension["last_call_secs_ago"])) {
+                    $query .= "last_call_secs_ago = CASE extension ";
+                    foreach ($extension as $ext) {
+                        if (isset($ext["last_call_secs_ago"])) {
+                            $query .= "WHEN '{$ext["extension"]}' THEN {$ext["last_call_secs_ago"]} ";
+                        }
+                    }
+                    $query .= "END, ";
+                }
+                
+                if (isset($extension["paused"])) {
+                    $query .= "paused = CASE extension ";
+                    foreach ($extension as $ext) {
+                        if (isset($ext["paused"])) {
+                            $query .= "WHEN '{$ext["extension"]}' THEN {$ext["paused"]} ";
+                        }
+                    }
+                    $query .= "END, ";
+                }
+            }
+            
+            $query = rtrim($query, ", "); 
+            $query .= " WHERE extension LIKE '%" . implode("%' OR extension LIKE '%", array_column($extension, 'extension')) . "%'";
+            
+            $host = Config::get('host');
+            $dbname = Config::get('dbname');
+            $username = Config::get('username');
+            $password = Config::get('password');
+
+            $pdo = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
+
+            $query = trim($query); 
             $pdo->beginTransaction();
-            $pdo->exec($query);
+            $affectedRows = $pdo->exec($query);
             $pdo->commit();
-            echo "Query executada com sucesso!";
+            echo "Query executada com sucesso! Número de linhas afetadas: $affectedRows";
         } catch (PDOException $e) {
             $pdo->rollBack();
             echo "Erro ao executar a query: " . $e->getMessage();
         }
     }
 
-    function updateMultipleRamais($elemento){
-        $query = "UPDATE ramais SET ";
+    function updateMultipleRamais($elemento) {
+        try {
+            $query = "UPDATE RAMAIS SET ";
     
-        foreach ($elemento as $peer) {
-            $query .= "host = CASE name ";
-            $query .= "WHEN '{$peer["name"]}' THEN '{$peer["host"]}' ";
-            $query .= "END, ";
-            
-            $query .= "dyn = CASE name ";
-            $query .= "WHEN '{$peer["name"]}' THEN '{$peer["dyn"]}' ";
-            $query .= "END, ";
-            
-            $query .= "nat = CASE name ";
-            $query .= "WHEN '{$peer["name"]}' THEN '{$peer["nat"]}' ";
-            $query .= "END, ";
-            
-            $query .= "acl = CASE name ";
-            $query .= "WHEN '{$peer["name"]}' THEN '{$peer["acl"]}' ";
-            $query .= "END, ";
-            
-            $query .= "port = CASE name ";
-            $query .= "WHEN '{$peer["name"]}' THEN '{$peer["port"]}' ";
-            $query .= "END, ";
+            $hostClauses = [];
+            $dynClauses = [];
+            $natClauses = [];
+            $aclClauses = [];
+            $lastCallClauses = [];
+            $pausedClauses = [];
+    
+            foreach ($elemento as $ext) {
+                $hostClauses[] = "WHEN '{$ext["name"]}' THEN '{$ext["name"]}'";
+                $hostClauses[] = "WHEN '{$ext["name"]}' THEN '{$ext["host"]}'";
+                $dynClauses[] = "WHEN '{$ext["name"]}' THEN '{$ext["dyn"]}'";
+                $natClauses[] = "WHEN '{$ext["name"]}' THEN '{$ext["nat"]}'";
+                $aclClauses[] = "WHEN '{$ext["name"]}' THEN '{$ext["acl"]}'";
+                $portClauses[] = "WHEN '{$ext["name"]}' THEN '{$ext["port"]}'";
+    
+                if (isset($ext["last_call_secs_ago"])) {
+                    $lastCallClauses[] = "WHEN '{$ext["name"]}' THEN '{$ext["last_call_secs_ago"]}'";
+                }
+    
+                if (isset($ext["paused"])) {
+                    $pausedClauses[] = "WHEN '{$ext["name"]}' THEN '{$ext["paused"]}'";
+                }
+            }
+    
+            $query .= "name = CASE name " . implode(" ", $hostClauses) . " END, ";
+            $query .= "host = CASE name " . implode(" ", $hostClauses) . " END, ";
+            $query .= "dyn = CASE name " . implode(" ", $dynClauses) . " END, ";
+            $query .= "nat = CASE name " . implode(" ", $natClauses) . " END, ";
+            $query .= "acl = CASE name " . implode(" ", $aclClauses) . " END, ";
+            $query .= "port = CASE name " . implode(" ", $portClauses) . " END, ";
+    
+    
+            $query = rtrim($query, ", ");
+    
+            $query .= " WHERE name IN ('" . implode("','", array_column($elemento, 'name')) . "')";
+    
+            $host = Config::get('host');
+            $dbname = Config::get('dbname');
+            $username = Config::get('username');
+            $password = Config::get('password');
+
+            $pdo = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
+
+            $query = trim($query);
+
+            try {
+                $pdo->beginTransaction();
+                $affectedRows = $pdo->exec($query);
+                $pdo->commit();
+                echo "Query executada com sucesso! Linhas afetadas: " . $affectedRows . "<br>";
+
+                $stmt = $pdo->prepare("SELECT name FROM RAMAIS WHERE name IN ('7000/7000', '7001/7001', '7004/7002', '7003/7003', '7002/7004')");
+                $stmt->execute();
+                $updatedNames = $stmt->fetchAll(PDO::FETCH_COLUMN);
+                echo "Nomes atualizados: " . implode(", ", $updatedNames);
+            } catch (PDOException $e) {
+                $pdo->rollBack();
+                echo "Erro ao executar a query: " . $e->getMessage();
+            }
+        } catch (PDOException $e) {
+            echo "Erro ao executar a query: " . $e->getMessage();
         }
-        
-        $query = rtrim($query, ", "); // Remove a vírgula extra no final
-        $query .= " WHERE name IN (";
-        
-        $peerNames = array_column($elemento, 'name');
-        $query .= "'" . implode("','", $peerNames) . "')";
-        
     }
+    
+    
 
 }
 

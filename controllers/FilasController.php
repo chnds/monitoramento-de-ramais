@@ -25,10 +25,9 @@ class FilasController {
     }
 
     public function update($data) {
-        $data = json_decode($data, true);
-
         $filasModel = new Model('filas');
-        $filas = $filasModel->updateMultipleFilas($data['filas']);
+        $data = json_decode($data, true);
+        $filas = $filasModel->updateMultipleFilas($data);
         echo json_encode($filas);
     }
 
